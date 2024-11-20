@@ -1,17 +1,20 @@
-# apache/docker-compose.yml
-version: '3.8'
-
 services:
-  webserver:
-    build: .
-    container_name: php_apache
+  php-apache:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./php:/var/www/html
     ports:
       - "8080:80"
-    volumes:
-      - ./web:/var/www/html
+    environment:
+      - DB_HOST=mysql-service
+      - DB_USER=admin
+      - DB_PASSWORD=admin1234
+      - DB_NAME=cloud_tp
     networks:
-      - app_network
+      - my-network
 
 networks:
-  app_network:
-    external: true
+  my-network:
+    name: cloud-tp-network

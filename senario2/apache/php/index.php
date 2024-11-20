@@ -1,13 +1,14 @@
 <?php
 // Database connection parameters
-$host = 'mysql';  // service name from docker-compose
-$dbname = 'database';
-$username = 'user';
-$password = 'password';
+$host = "mysql-service";
+$db = "cloud_tp";
+$user = "admin";
+$pass = "admin1234";
 
 try {
     // Create PDO connection
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Query users

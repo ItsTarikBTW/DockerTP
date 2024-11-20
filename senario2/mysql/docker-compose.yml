@@ -1,26 +1,21 @@
-# mysql/docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
-  database:
-    build: .
-    container_name: mysql_db
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-service
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: R@@t_passw0rd
-      MYSQL_DATABASE: database
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: cloud_tp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin1234
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql:/docker-entrypoint-initdb.d
     networks:
-      - app_network
+      - my-network
 
 networks:
-  app_network:
-    external: true
-
-volumes:
-  mysql_data:
+  my-network:
+    name: cloud-tp-network
